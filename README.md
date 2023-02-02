@@ -57,3 +57,106 @@ You can send your commands and be redirected to your ROS2 device with the rclnod
 <p>
 You can send your commands and be redirected to your ROS2 device with the rclnodejs Action Client/Server. The action server runs on the actual hardware device and the agent handles in the function called "updateContextHandler" the creation of the ROS2 Action Client (class called "GPIOActionClient") and sends the message to the device.
 </p>
+
+
+<h4>
+ Data Models
+</h4>
+
+<p>
+ROS2 System
+</p>
+
+<pre>
+{
+    "devices": [
+        {
+            "device_id": "turtle001",
+            "entity_name": "urn:ngsiv2:ROS2System:Turtle001",
+            "entity_type": "ROS2System",
+            "transport": "HTTP",
+            "lazy": [
+                {"object_id": "pose_lazy", "name": "turtlePoseLazy", "type":"object"},
+                {"object_id": "cmd_vel", "name":"setVelocity", "type": "object"}
+            ],
+            "internal_attributes": [
+                {"turtlePoseLazy": {"ros2Interface": {"type":"string","value":"subscriber"},
+                                    "topicType":{ "type":"string","value":"turtlesim/msg/Pose"},
+                                    "topicName": {"type":"string","value":"/turtle1/pose"},
+                                    "throttlingInMilliseconds": {"type":"number", "value": 200 }}
+                },
+                {"setVelocity": {"ros2Interface": {"type":"string","value":"publisher"},
+                                    "topicType":{ "type":"string","value":"geometry_msgs/msg/Twist"},
+                                    "topicName": {"type":"string","value":"/turtle1/cmd_vel"},
+                                    "throttlingInMilliseconds": {"type":"number", "value": 200 }}
+                }
+            ],
+            "attributes": [
+                {
+                    "object_id": "pose", "name": "turtlePoseActive", "type": "object",
+                    "metadata": {"ros2Interface": {"type":"string", "value":"subscriber"},
+                                 "topicType": {"type":"string", "value":"turtlesim/msg/Pose"},
+                                 "topicName": {"type":"string", "value":"/turtle1/pose"},
+                                 "throttlingInMilliseconds": {"type":"number", "value":200}
+                                 }
+                }
+            ],
+            "commands":[
+                {
+                    "object_id":"start",
+                    "name":"start",
+                    "type":"command"
+                },
+                {
+                    "object_id":"stop",
+                    "name":"stop",
+                    "type":"command"
+                }
+            ]
+        }
+    ]
+}
+</pre>
+
+
+<p>
+CNC Legacy Devices
+</p>
+
+<pre>
+{
+    "devices": [
+        {
+            "device_id":"axis001",
+            "entity_name":"urn:ngsi-ld:Axis:001",
+            "entity_type":"IOT",
+            "endpoint":"https://dihweb.conveyor.cloud/api/api/ThreeAxisEndpoint",
+            "transport":"HTTP",
+            "attributes":[
+                {
+                    "object_id":"Status",
+                    "name":"Status",
+                    "type":"Text"
+                }
+            ],
+            "commands":[
+                {
+                    "object_id":"start",
+                    "name":"start",
+                    "type":"command"
+                },
+                {
+                    "object_id":"stop",
+                    "name":"stop",
+                    "type":"command"
+                },
+                {
+                    "object_id":"auto",
+                    "name":"auto",
+                    "type":"command"
+                }
+            ]
+        }
+    ]
+}
+</pre>
